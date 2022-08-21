@@ -22,7 +22,7 @@ def string_to_date(string):
     :param string:
     :return:
     """
-    return datetime.strptime(string, "%Y-%m-%d")
+    return datetime.strptime(string, "%Y%m%d")
 
 
 def string_to_datetime(string):
@@ -31,7 +31,7 @@ def string_to_datetime(string):
     :param string:
     :return:
     """
-    return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")
+    return datetime.strptime(string, "%Y%m%d%H%M%S")
 
 
 def date_to_time(timestring):
@@ -52,7 +52,7 @@ def datetime_to_time(timestring):
     return time.mktime(time.strptime(timestring, '%Y-%m-%d %H:%M:%S'))
 
 
-def get_system_datetime():
+def get_system_time_stamp():
     """
     获取系统当前时间
     :return:
@@ -62,7 +62,15 @@ def get_system_datetime():
     return result_time
 
 
-def get_system_datetime_str():
+def get_system_datetime() -> datetime:
+    """
+    获取系统当前时间
+    :return:
+    """
+    return datetime.now()
+
+
+def get_system_datetime_str() -> str:
     """
     获取系统当前时间
     :return:

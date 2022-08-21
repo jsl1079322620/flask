@@ -9,8 +9,8 @@ from flask import request
 from flask_restful import Resource
 
 from api.department.department_singleton import department_singleton
-from base.log_config import logger
-from base.status_code import response_code
+from utils.log_config import logger
+from utils.status_code import response_code
 from comm.comm_model_enum import modelEnum
 from comm.comm_response_process import response_result_process
 from comm.comm_request_process import __REQ__

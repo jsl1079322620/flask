@@ -5,14 +5,17 @@
 @create date: 2022/8/19 20:23
 @description:
 """
+import logging
+import os
+from logging.handlers import RotatingFileHandler
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 
 from api.resource import api
-from base.log_config import init_log
+from utils.log_config import init_log, del_log_dir
 
-from config import config, Config
+from config import config
 
 
 def create_app(config_name):
@@ -27,6 +30,14 @@ def create_app(config_name):
     app.config['JSON_AS_ASCII'] = False
 
     # 初始化日志###
-    init_log()
+    # init_log()
+
+    @app.before_request
+    def reset_log():
+        url_rule = request.url_rule
+        router = str(url_rule)[1:] if len(str(url_rule)) else ''
+        init_log(router)
+        del_log_dir()
+
     api.init_app(app)
     return app

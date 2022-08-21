@@ -11,13 +11,13 @@ from flask import request
 from flask_restful import Resource
 
 from api.department.department_singleton import department_singleton
-from base.status_code import response_code
+from utils.status_code import response_code
 from comm.comm_request_process import __REQ__
 from comm.comm_response_process import response_result_process
 
 from comm.comm_model_enum import modelEnum
 
-from base.log_config import logger
+from utils.log_config import logger
 
 
 class InterfaceDepartment(Resource):
@@ -49,11 +49,11 @@ class InterfaceDepartment(Resource):
             if not request_data:
                 data = response_code.REQUEST_PARAM_MISSED
                 return response_result_process(data)
-            fields = ['dpt_name', 'p_id']
+            fields = ['username', 'password']
             must = __REQ__.verify_all_param_must(request_data, fields)
             if must:
                 return response_result_process(must)
-            par_type = {'dpt_name': str, 'p_id': int}
+            par_type = {'username': str, 'password': str}
             param_type = __REQ__.verify_all_param_type(request_data, par_type)
             if param_type:
                 return response_result_process(param_type)
@@ -62,7 +62,7 @@ class InterfaceDepartment(Resource):
             return response_result_process(data)
         except Exception as e:
             logger.error(e)
-            error_data = response_code.ADD_DATA_FAIL
+            error_data = response_code.TEST
             return response_result_process(error_data)
 
     def put(self, dpt_id=None):

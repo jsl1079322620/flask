@@ -8,7 +8,7 @@
 import json
 from json import JSONDecodeError
 
-from base.log_config import logger
+from utils.log_config import logger
 from comm.comm_api_version import apiVersion
 from comm.comm_response_code import response_code
 from comm.comm_response_log import ResponseLog

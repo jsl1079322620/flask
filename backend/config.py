@@ -25,7 +25,7 @@ class Configuration():
             self.config_file_path = config_file_path
             self.conf = configparser.ConfigParser()
             self.conf.read(config_file_path)
-            print('======',self.conf)
+            print('======', self.conf)
         except Exception as e:
             # 文件不存在或者读取失败
             print(str(e))
@@ -126,6 +126,10 @@ class Configuration():
         debug = self.conf.get(section, 'debug')
 
         return host, port, debug
+
+    def get_log_config(self, section='LOG'):
+        days_ago = self.conf.get(section, 'delete_log_days_ago')
+        return days_ago
 
 
 configuration = Configuration()

@@ -61,6 +61,12 @@ class responseCode(object):
         return {'code': 1012, 'msg': '修改数据失败'}
 
     @property
+    def TEST(self):
+        return {'code': 20000, 'data': {
+            "token": 'admin-token'
+        }}
+
+    @property
     def DELETE_DATA_FAIL(self):
         return {'code': 1013, 'msg': '删除数据失败'}
 
@@ -119,7 +125,6 @@ class responseCode(object):
     @property
     def CHECK_EXIST_ERROR(self):
         return {'code': 1023, 'msg': '验证数据错误'}
-
 
 
 response_code = responseCode()

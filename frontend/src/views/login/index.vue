@@ -1,5 +1,7 @@
 <template>
   <div class="login-container">
+    <div id="qrcode" />
+
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
@@ -158,6 +160,7 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
+              console.log('router.push', { path: this.redirect || '/', query: this.otherQuery })
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
             })

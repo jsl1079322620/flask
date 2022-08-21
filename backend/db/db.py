@@ -8,8 +8,6 @@
 import os.path
 import sqlite3
 
-from base.log_config import logger
-
 
 class DB:
     def __init__(self, db_name=r'C:\Users\Jiang\IdeaProjects\hxh\backend\db\database.db'):

@@ -190,9 +190,14 @@ module.exports = {
     'yoda': [2, 'never'],
     'prefer-const': 2,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'object-curly-spacing': [2, 'always', {
+    'object-curly-spacing': [0, 'always', {
       objectsInObjects: false
     }],
+    // "vue/html-closing-bracket-spacing": ["error", {
+    //   "startTag": "never",
+    //   "endTag": "never",
+    //   "selfClosingTag": "never"
+    // }],
     'array-bracket-spacing': [2, 'never']
   }
 }

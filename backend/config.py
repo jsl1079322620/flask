@@ -6,8 +6,12 @@
 @description:
 """
 import configparser
+import os.path
 
 from comm.comm_time import get_system_year_str
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ENCODING = 'UTF-8'
 
 
 class Configuration():
@@ -19,16 +23,23 @@ class Configuration():
     EMAIL = ''
     COPYRIGHT_CUR_YEAR = '版权所有 ©' + get_system_year_str() + COMPANY
 
-    def __init__(self, config_file_path=r'./config.ini'):
+    def __init__(self):
         try:
-
-            self.config_file_path = config_file_path
+            self.config_file_path = os.path.join(BASE_DIR, 'config.ini')
             self.conf = configparser.ConfigParser()
-            self.conf.read(config_file_path)
-            print('======', self.conf)
+            self.conf.read(self.config_file_path, encoding=ENCODING)
         except Exception as e:
             # 文件不存在或者读取失败
             print(str(e))
+
+    def set_option_value(self, section, option, value=None):
+        """
+        :param section:
+        :param option:
+        :param value:
+        :return:
+        """
+        self.conf.set(section, option, value)
 
     def write_file(self):
         """
@@ -129,7 +140,8 @@ class Configuration():
 
     def get_log_config(self, section='LOG'):
         days_ago = self.conf.get(section, 'delete_log_days_ago')
-        return days_ago
+        log_path_root = self.conf.get(section, 'log_path_root')
+        return days_ago, log_path_root
 
 
 configuration = Configuration()

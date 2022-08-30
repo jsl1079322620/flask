@@ -13,7 +13,8 @@ from flask import Flask, request
 from flask_cors import CORS
 
 from api.resource import api
-from utils.log_config import init_log, del_log_dir
+from utils.log_config import init_log
+from utils.log_delete import del_log_dir
 
 from config import config
 

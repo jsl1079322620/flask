@@ -10,7 +10,7 @@ import os
 from utils.log_config import logger as comm_file_logger
 
 
-def makeDirs(_path: str):
+def make_dirs(_path: str):
     try:
         path = _path.strip()
         if not os.path.exists(path):

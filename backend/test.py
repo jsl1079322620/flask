@@ -33,4 +33,7 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    # test()
+    # print(os.path.dirname(os.path.abspath(__file__)))
+    from jupyter_core.paths import jupyter_path
+    print(jupyter_path())

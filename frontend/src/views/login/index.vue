@@ -49,7 +49,7 @@
       <!--    <span>Password : any</span>-->
       <!--  </div>-->
 
-      <!--  <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
+      <!--  <el-button class="third-party-button" type="primary" @click="showDialog=true">-->
       <!--    Or connect with-->
       <!--  </el-button>-->
       <!--</div>-->
@@ -132,10 +132,8 @@ export default {
   methods: {
     checkCapslock(e) {
       console.log('checkCapslock')
-      const { key } = e
-      console.log(`${key}`)
-      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
-      console.log(`this.capsTooltip:${this.capsTooltip}`)
+      // const { key } = e
+      // this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
     },
     showPwd() {
       if (this.passwordType === 'password') {
@@ -305,14 +303,14 @@ $light_gray: #eee;
     user-select: none;
   }
 
-  .thirdparty-button {
+  .third-party-button {
     position: absolute;
     right: 0;
     bottom: 6px;
   }
 
   @media only screen and (max-width: 470px) {
-    .thirdparty-button {
+    .third-party-button {
       display: none;
     }
   }

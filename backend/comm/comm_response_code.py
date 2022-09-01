@@ -25,7 +25,7 @@ class ErrorCodeEnum(Enum):
     UPDATE_DATA_FAIL = 1012
     DELETE_DATA_FAIL = 1013
     GET_DATA_FAIL = 1014
-    REQUEST_VERSION_ISEXISTENCE = 1015
+    REQUEST_VERSION_IS_NOT_EXISTENCE = 1015
     ALREADY_HANDLED = 1016
     DATA_IS_NOT_EXIST = 1017
     REQUEST_PARAM_MISSED = 1018
@@ -38,6 +38,7 @@ class ErrorCodeEnum(Enum):
     WRONGVALUE = 1022
     CHECK_EXIST_ERROR = 1023
     EXCEPTION_DB = 1024
+    EXCEPTION_ERROR = 1111
 
 
 class responseCode(object):
@@ -103,7 +104,7 @@ class responseCode(object):
         return {'code': 1014, 'msg': '获取数据失败'}
 
     @property
-    def REQUEST_VERSION_ISEXISTENCE(self):
+    def REQUEST_VERSION_IS_NOT_EXISTENCE(self):
         return {'code': 1015, 'msg': '请求的版本不存在'}
 
     @property
@@ -154,7 +155,11 @@ class responseCode(object):
     def EXCEPTION_DB(self):
         return {'code': 1024, 'msg': '数据库操作异常'}
 
-    def get_struct_by_error_code(self, error_code):
+    @staticmethod
+    def EXCEPTION_ERROR(error_msg):
+        return {'code': 1111, 'msg': str(error_msg or '程序执行异常')}
+
+    def get_struct_by_error_code(self, error_code, error_msg=''):
         if error_code == ErrorCodeEnum.SUCCESS:
             return self.SUCCESS
         if error_code == ErrorCodeEnum.LOGIN_IS_FAIL:
@@ -185,8 +190,8 @@ class responseCode(object):
             return self.DELETE_DATA_FAIL
         if error_code == ErrorCodeEnum.GET_DATA_FAIL:
             return self.DELETE_DATA_FAIL
-        if error_code == ErrorCodeEnum.REQUEST_VERSION_ISEXISTENCE:
-            return self.REQUEST_VERSION_ISEXISTENCE
+        if error_code == ErrorCodeEnum.REQUEST_VERSION_IS_NOT_EXISTENCE:
+            return self.REQUEST_VERSION_IS_NOT_EXISTENCE
         if error_code == ErrorCodeEnum.ALREADY_HANDLED:
             return self.ALREADY_HANDLED
         if error_code == ErrorCodeEnum.DATA_IS_NOT_EXIST:
@@ -211,6 +216,8 @@ class responseCode(object):
             return self.CHECK_EXIST_ERROR
         if error_code == ErrorCodeEnum.EXCEPTION_DB:
             return self.EXCEPTION_DB
+        if error_code == ErrorCodeEnum.EXCEPTION_ERROR:
+            return self.EXCEPTION_ERROR(error_msg)
 
 
 response_code = responseCode()

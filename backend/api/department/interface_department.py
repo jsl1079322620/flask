@@ -11,8 +11,8 @@ from flask import request
 from flask_restful import Resource
 
 from api.department.department_singleton import department_singleton
-from utils.status_code import response_code
-from comm.comm_request_process import __REQ__
+from comm.comm_response_code import response_code
+from comm.comm_request_process import req
 from comm.comm_response_process import response_result_process
 
 from comm.comm_model_enum import modelEnum
@@ -42,7 +42,7 @@ class InterfaceDepartment(Resource):
             if dpt_id is not None:
                 data = response_code.HTTP_404_NOT_FOUND
                 return response_result_process(data)
-            request_data = __REQ__.request_process(request, xml, modelEnum.department.value)
+            request_data = req.request_process(request, xml, modelEnum.department.value)
             if isinstance(request_data, bool):
                 request_data = response_code.REQUEST_PARAM_FORMAT_ERROR
                 return response_result_process(request_data)
@@ -50,11 +50,11 @@ class InterfaceDepartment(Resource):
                 data = response_code.REQUEST_PARAM_MISSED
                 return response_result_process(data)
             fields = ['username', 'password']
-            must = __REQ__.verify_all_param_must(request_data, fields)
+            must = req.verify_all_param_must(request_data, fields)
             if must:
                 return response_result_process(must)
             par_type = {'username': str, 'password': str}
-            param_type = __REQ__.verify_all_param_type(request_data, par_type)
+            param_type = req.verify_all_param_type(request_data, par_type)
             if param_type:
                 return response_result_process(param_type)
             dpt_name, dpt_p_id = request_data.get('dpt_name'), request_data.get('p_id')
@@ -74,7 +74,7 @@ class InterfaceDepartment(Resource):
                 return response_result_process(data)
 
             if dpt_id is not None:
-                request_data = __REQ__.request_process(request, xml, modelEnum.department.value)
+                request_data = req.request_process(request, xml, modelEnum.department.value)
                 if isinstance(request_data, bool):
                     request_data = response_code.REQUEST_PARAM_FORMAT_ERROR
                     return response_result_process(request_data)
@@ -83,13 +83,13 @@ class InterfaceDepartment(Resource):
                     return response_result_process(data)
 
                 fields = ['dpt_name', 'p_id']
-                must = __REQ__.verify_all_param_must(request_data, fields)
+                must = req.verify_all_param_must(request_data, fields)
                 if must:
                     return response_result_process(must)
 
                 par_type = {'dpt_name': str, 'p_id': int}
 
-                param_type = __REQ__.verify_all_param_type(request_data, par_type)
+                param_type = req.verify_all_param_type(request_data, par_type)
                 if param_type:
                     return response_result_process(param_type)
                 dpt_name = request_data.get('dpt_name')

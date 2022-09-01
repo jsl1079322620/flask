@@ -10,10 +10,10 @@ from flask_restful import Resource
 
 from api.department.department_singleton import department_singleton
 from utils.log_config import logger
-from utils.status_code import response_code
+from comm.comm_response_code import response_code
 from comm.comm_model_enum import modelEnum
 from comm.comm_response_process import response_result_process
-from comm.comm_request_process import __REQ__
+from comm.comm_request_process import req
 
 
 class interfaceDepartmentStaff(Resource):
@@ -24,7 +24,7 @@ class interfaceDepartmentStaff(Resource):
                 data = response_code.HTTP_404_NOT_FOUND
                 return response_result_process(data, xml=xml)
 
-            request_data = __REQ__.request_process(request, xml, modelEnum.department.value)
+            request_data = req.request_process(request, xml, modelEnum.department.value)
             if isinstance(request_data, bool):
                 request_data = response_code.REQUEST_PARAM_FORMAT_ERROR
                 return response_result_process(request_data, xml=xml)
@@ -32,11 +32,11 @@ class interfaceDepartmentStaff(Resource):
                 data = response_code.REQUEST_PARAM_MISSED
                 return response_result_process(data, xml=xml)
             fields = ['current_page', 'page_size']
-            must = __REQ__.verify_all_param_must(request_data, fields)
+            must = req.verify_all_param_must(request_data, fields)
             if must:
                 return response_result_process(must, xml=xml)
             par_type = {'page_size': int, 'current_page': int}
-            param_type = __REQ__.verify_all_param_type(request_data, par_type)
+            param_type = req.verify_all_param_type(request_data, par_type)
             if param_type:
                 return response_result_process(param_type, xml=xml)
 
@@ -55,7 +55,7 @@ class interfaceDepartmentStaff(Resource):
             if dpt_id is None:
                 data = response_code.HTTP_404_NOT_FOUND
                 return response_result_process(data, xml=xml)
-            request_data = __REQ__.request_process(request, xml, modelEnum.department.value)
+            request_data = req.request_process(request, xml, modelEnum.department.value)
             if isinstance(request_data, bool):
                 request_data = response_code.REQUEST_PARAM_FORMAT_ERROR
                 return response_result_process(request_data, xml=xml)
@@ -63,11 +63,11 @@ class interfaceDepartmentStaff(Resource):
                 data = response_code.REQUEST_PARAM_MISSED
                 return response_result_process(data, xml=xml)
             fields = ['user_ids']
-            must = __REQ__.verify_all_param_must(request_data, fields)
+            must = req.verify_all_param_must(request_data, fields)
             if must:
                 return response_result_process(must, xml=xml)
             par_type = {'user_ids': list}
-            param_type = __REQ__.verify_all_param_type(request_data, par_type)
+            param_type = req.verify_all_param_type(request_data, par_type)
             if param_type:
                 return response_result_process(param_type, xml=xml)
             user_ids = str(request_data.get('user_ids'))
@@ -84,7 +84,7 @@ class interfaceDepartmentStaff(Resource):
             if dpt_id is None:
                 data = response_code.HTTP_404_NOT_FOUND
                 return response_result_process(data, xml=xml)
-            request_data = __REQ__.request_process(request, xml, modelEnum.department.value)
+            request_data = req.request_process(request, xml, modelEnum.department.value)
             if isinstance(request_data, bool):
                 request_data = response_code.REQUEST_PARAM_FORMAT_ERROR
                 return response_result_process(request_data, xml=xml)
@@ -92,11 +92,11 @@ class interfaceDepartmentStaff(Resource):
                 data = response_code.REQUEST_PARAM_MISSED
                 return response_result_process(data, xml=xml)
             fields = ['user_ids']
-            must = __REQ__.verify_all_param_must(request_data, fields)
+            must = req.verify_all_param_must(request_data, fields)
             if must:
                 return response_result_process(must, xml=xml)
             par_type = {'user_ids': list}
-            param_type = __REQ__.verify_all_param_type(request_data, par_type)
+            param_type = req.verify_all_param_type(request_data, par_type)
             if param_type:
                 return response_result_process(param_type, xml=xml)
             user_ids = str(request_data.get('user_ids'))

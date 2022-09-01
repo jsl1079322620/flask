@@ -14,7 +14,6 @@ from flask_cors import CORS
 
 from api.resource import api
 from utils.log_config import init_log
-from utils.log_delete import del_log_dir
 
 from config import config
 
@@ -38,7 +37,6 @@ def create_app(config_name):
         url_rule = request.url_rule
         router = str(url_rule)[1:] if len(str(url_rule)) else ''
         init_log(router)
-        del_log_dir()
 
     api.init_app(app)
     return app

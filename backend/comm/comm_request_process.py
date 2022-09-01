@@ -76,11 +76,12 @@ class requestProcess(object):
                 return {}
             data = json.loads(req_str)
             if isinstance(data, list):
-                return False
+                logger.error(ResponseLog.request_param_format_error)
+                raise 'error'
             return data
         except JSONDecodeError as e:
             logger.error(e)
-            return False
+            raise 'error'
 
     def verify_one_param_type(self, param_name, value, type=None):
         """
@@ -221,7 +222,32 @@ class requestProcess(object):
             else:
                 pass
 
-    def verify_version(self, version, xml=None):
+    def verify_all_param_must_and_type(self, request_data: dict, fields: (list, dict)):
+        """
+        批量验证是否含有必输参数以及参数的类型
+        :param request_data: 请求的参数数据
+        :param fields:
+                ['a','b']时只需验证是否包含必输参数'a'、'b'
+                {'a':str,'b':int}时验证是否包含必输参数'a'、'b'及其参数类型
+        :return:验证通过时pass，否则返回验证失败的信息
+        """
+        if isinstance(fields, list):
+            return self.verify_all_param_must(request_data, fields)
+        elif isinstance(fields, dict):
+            return self.verify_all_param_type(request_data, fields)
+        else:
+            pass
+
+    @staticmethod
+    def verify_data_type(request_data: dict):
+        if isinstance(request_data, bool):
+            verify_result = response_code.REQUEST_PARAM_FORMAT_ERROR
+            return verify_result
+        else:
+            pass
+
+    @staticmethod
+    def verify_version(version, xml=None):
         """
         API版本验证
         :param version: 版本信息
@@ -231,8 +257,9 @@ class requestProcess(object):
         if version == apiVersion.version1.value:
             return True, True
         else:  # 版本信息不存在给的提示
-            result = response_code.REQUEST_VERSION_ISEXISTENCE
+            result = response_code.REQUEST_VERSION_IS_NOT_EXISTENCE
             return False, response_result_process(result, xml=xml)
 
 
-__REQ__ = requestProcess()
+req = requestProcess()
+

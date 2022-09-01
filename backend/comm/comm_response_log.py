@@ -5,6 +5,7 @@
 @create date: 2022/8/20 10:21
 @description:
 """
+from comm.comm_response_code import response_code
 
 
 class ResponseLog:
@@ -19,7 +20,7 @@ class ResponseLog:
         :param param:
         :return:
         """
-        return "param '%s' is null ." % (param)
+        return "param '%s' is null ." % param
 
     @staticmethod
     def wrong_value(param, value):
@@ -115,7 +116,7 @@ class ResponseLog:
         :param value:
         :return:
         """
-        return "Data '(%s,%s)' is  not exist." % (data, value)
+        return "Data '(%s,%s)' is not exist." % (data, value)
 
     @staticmethod
     def mission_db_exist(sat_code):
@@ -135,3 +136,7 @@ class ResponseLog:
         :return:
         """
         return "Relationship between '(%s,%s)' is  not exist." % (v1, v2)
+
+    @property
+    def request_param_format_error(self):
+        return response_code.REQUEST_PARAM_FORMAT_ERROR['msg']

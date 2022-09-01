@@ -19,7 +19,8 @@ from api.department.interface_department_staff import interfaceDepartmentStaff
 # from api.user_group.interface_user_group import interfaceUserGroup
 # from api.user_group.interface_user_group_role import interfaceUserGroupRole
 # from api.user_group.interface_user_group_staff import interfaceUserGroupStaff
-from api.user.interface_userLogin import InterfaceUser
+from api.login.interface_login import InterfaceLogin
+from api.user.interface_user import InterfaceUser
 from api.vue_element_admin.interface_vue import InterfaceVue
 
 api = Api()
@@ -39,8 +40,12 @@ api.add_resource(
 
 api.add_resource(
     InterfaceUser,
-    '/user/login',
     '/user/info'
+)
+
+api.add_resource(
+    InterfaceLogin,
+    '/user/login'
 )
 
 # # 用户
